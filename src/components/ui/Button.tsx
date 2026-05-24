@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
-import { ButtonHTMLAttributes } from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
+  children?: React.ReactNode;
 }
 
 export function Button({
