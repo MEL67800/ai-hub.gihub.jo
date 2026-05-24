@@ -107,10 +107,10 @@ export function updateProduct(id: number, data: Partial<Product>) {
   const db = getDb();
   const fields = Object.keys(data)
     .filter((k) => data[k as keyof typeof data] !== undefined)
-    .map((k) => `${k} = @${k}`)
-    .join(", ");
+    .map((k) => `${k} = @${k}`);
+  if (fields.length === 0) return;
   const stmt = db.prepare(
-    `UPDATE products SET ${fields}, updated_at = datetime('now') WHERE id = @id`
+    `UPDATE products SET ${fields.join(", ")}, updated_at = datetime('now') WHERE id = @id`
   );
   return stmt.run({ ...data, id });
 }
@@ -145,9 +145,9 @@ export function updateNews(id: number, data: Partial<News>) {
   const db = getDb();
   const fields = Object.keys(data)
     .filter((k) => data[k as keyof typeof data] !== undefined && k !== "id")
-    .map((k) => `${k} = @${k}`)
-    .join(", ");
-  const stmt = db.prepare(`UPDATE news SET ${fields} WHERE id = @id`);
+    .map((k) => `${k} = @${k}`);
+  if (fields.length === 0) return;
+  const stmt = db.prepare(`UPDATE news SET ${fields.join(", ")} WHERE id = @id`);
   return stmt.run({ ...data, id });
 }
 

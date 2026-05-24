@@ -86,14 +86,21 @@ for (const p of products) {
   }
 }
 
+function getProductId(slug: string): number {
+  const row = db.prepare("SELECT id FROM products WHERE slug = ?").get(slug) as { id: number } | undefined;
+  if (!row) throw new Error(`Product not found: ${slug}`);
+  return row.id;
+}
+
 const newsList = [
-  { product_id: 1, title: "GPT-4o 正式发布", content: "OpenAI 发布 GPT-4o 多模态模型...", source_url: "https://openai.com/index/hello-gpt-4o/", published_at: "2024-05-13" },
-  { product_id: 2, title: "Claude 3.5 Sonnet 发布", content: "Anthropic 发布 Claude 3.5 Sonnet...", source_url: "https://www.anthropic.com/news/claude-3-5-sonnet", published_at: "2024-06-20" },
-  { product_id: 3, title: "Gemini 2.0 Flash 发布", content: "Google 推出 Gemini 2.0 Flash...", source_url: "https://blog.google/technology/ai/google-gemini-ai/", published_at: "2025-02-05" },
+  { slug: "chatgpt", title: "GPT-4o 正式发布", content: "OpenAI 发布 GPT-4o 多模态模型...", source_url: "https://openai.com/index/hello-gpt-4o/", published_at: "2024-05-13" },
+  { slug: "claude", title: "Claude 3.5 Sonnet 发布", content: "Anthropic 发布 Claude 3.5 Sonnet...", source_url: "https://www.anthropic.com/news/claude-3-5-sonnet", published_at: "2024-06-20" },
+  { slug: "gemini", title: "Gemini 2.0 Flash 发布", content: "Google 推出 Gemini 2.0 Flash...", source_url: "https://blog.google/technology/ai/google-gemini-ai/", published_at: "2025-02-05" },
 ];
 
 for (const n of newsList) {
-  createNews(n as any);
+  const { slug, ...newsData } = n;
+  createNews({ ...newsData, product_id: getProductId(slug) });
   console.log(`  Created news: ${n.title}`);
 }
 
