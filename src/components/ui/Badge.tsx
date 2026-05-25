@@ -8,7 +8,7 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 export function Badge({ children, variant = "default", className, ...props }: BadgeProps) {
   const variants = {
     default: "bg-neutral-100 text-neutral-700",
-    outline: "border border-neutral-200 text-neutral-600",
+    outline: "border border-border text-foreground-secondary",
   };
 
   return (

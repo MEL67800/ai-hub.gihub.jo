@@ -8,7 +8,7 @@ interface Props {
 
 export function CompareTable({ products, onRemove }: Props) {
   if (products.length === 0) {
-    return <p className="text-center text-neutral-400 py-20">请添加产品开始对比</p>;
+    return <p className="text-center text-foreground-secondary py-20">请添加产品开始对比</p>;
   }
 
   const capabilityKeys = ["chat", "code", "image", "voice", "video"];
@@ -20,20 +20,20 @@ export function CompareTable({ products, onRemove }: Props) {
     <div className="overflow-x-auto">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b border-neutral-200">
-            <th className="py-4 pr-6 text-left text-sm font-medium text-neutral-400 w-32">对比项</th>
+          <tr className="border-b border-border">
+            <th className="py-4 pr-6 text-left text-sm font-medium text-foreground-secondary w-32">对比项</th>
             {products.map((p) => (
               <th key={p.id} className="py-4 px-4 text-left min-w-[200px]">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold">{p.name}</span>
                   <button onClick={() => onRemove(p.slug)} className="text-neutral-300 hover:text-red-500 transition-colors">×</button>
                 </div>
-                <p className="text-xs text-neutral-400">{p.company}</p>
+                <p className="text-xs text-foreground-secondary">{p.company}</p>
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-100">
+        <tbody className="divide-y divide-[var(--border)]">
           {[
             { label: "评分", key: "rating" },
             { label: "发布时间", key: "release_date" },
@@ -41,7 +41,7 @@ export function CompareTable({ products, onRemove }: Props) {
             { label: "最低价格", key: "price" },
           ].map((row) => (
             <tr key={row.key}>
-              <td className="py-3 pr-6 text-sm text-neutral-500">{row.label}</td>
+              <td className="py-3 pr-6 text-sm text-foreground-secondary">{row.label}</td>
               {products.map((p) => {
                 let value = "";
                 if (row.key === "rating") value = `${p.avg_rating.toFixed(1)} (${p.rating_count})`;
@@ -59,14 +59,14 @@ export function CompareTable({ products, onRemove }: Props) {
             </tr>
           ))}
           <tr>
-            <td className="py-3 pr-6 text-sm font-medium text-neutral-500 pt-6">能力对比</td>
+            <td className="py-3 pr-6 text-sm font-medium text-foreground-secondary pt-6">能力对比</td>
             {products.map((p) => (
               <td key={p.id} className="py-3 px-4 pt-6" />
             ))}
           </tr>
           {capabilityKeys.map((key) => (
             <tr key={key}>
-              <td className="py-2 pr-6 text-sm text-neutral-500 pl-4">{capLabels[key]}</td>
+              <td className="py-2 pr-6 text-sm text-foreground-secondary pl-4">{capLabels[key]}</td>
               {products.map((p) => (
                 <td key={p.id} className="py-2 px-4">
                   {p.category.includes(key) ? (

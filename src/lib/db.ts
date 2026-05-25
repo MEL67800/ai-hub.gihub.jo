@@ -125,6 +125,11 @@ export function getAllNews(): News[] {
   return db.prepare("SELECT * FROM news ORDER BY published_at DESC").all() as News[];
 }
 
+export function getNewsById(id: number): News | undefined {
+  const db = getDb();
+  return db.prepare("SELECT * FROM news WHERE id = ?").get(id) as News | undefined;
+}
+
 export function getNewsByProductId(productId: number): News[] {
   const db = getDb();
   return db

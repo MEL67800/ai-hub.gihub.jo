@@ -25,8 +25,8 @@ export function ProductHeader({ product }: { product: ProductWithRating }) {
         className="rounded-2xl shadow-lg"
       />
       <h1 className="mt-6 text-4xl font-bold">{product.name}</h1>
-      <p className="mt-2 text-lg text-neutral-500">{product.company}</p>
-      <p className="mt-4 max-w-xl text-neutral-600">{product.summary}</p>
+      <p className="mt-2 text-lg text-foreground-secondary">{product.company}</p>
+      <p className="mt-4 max-w-xl text-foreground-secondary">{product.summary}</p>
       {product.rating_count > 0 && (
         <div className="mt-3 flex items-center gap-1 text-amber-500">
           <span className="text-lg">{"★".repeat(Math.round(product.avg_rating))}</span>

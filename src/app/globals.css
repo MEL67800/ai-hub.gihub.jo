@@ -2,30 +2,184 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   CSS Custom Properties — Light Mode
+   ============================================ */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f7;
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --accent: #0071e3;
+  --accent-secondary: #5e5ce6;
+  --accent-gradient: linear-gradient(135deg, #0071e3, #5e5ce6);
+  --border: rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+}
+
+/* ============================================
+   CSS Custom Properties — Dark Mode
+   ============================================ */
+.dark {
+  --bg-primary: #000000;
+  --bg-secondary: #1d1d1f;
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
+  --glass-bg: rgba(18, 18, 18, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   Base Layer
+   ============================================ */
 @layer base {
   html {
     scroll-behavior: auto;
   }
 
   body {
-    @apply bg-white text-neutral-900 antialiased;
-  }
-
-  .dark body {
-    @apply bg-neutral-950 text-white;
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
+/* ============================================
+   Utility Layer
+   ============================================ */
 @layer utilities {
+  /* ---- Glass morphism ---- */
   .glass {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--glass-border);
   }
 
   .glass-dark {
     background: rgba(18, 18, 18, 0.72);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* ---- Floating blur orbs ---- */
+  .blur-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .blur-orb--blue {
+    background: #0071e3;
+    width: 600px;
+    height: 600px;
+  }
+
+  .blur-orb--purple {
+    background: #5e5ce6;
+    width: 500px;
+    height: 500px;
+  }
+
+  .blur-orb--amber {
+    background: #ff9f0a;
+    width: 400px;
+    height: 400px;
+  }
+
+  /* ---- Gradient text ---- */
+  .text-gradient {
+    background: linear-gradient(135deg, #0071e3 0%, #5e5ce6 50%, #bf5af2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff9f0a 50%, #ff2d55 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ---- Hero gradient background ---- */
+  .bg-hero-gradient {
+    background-color: #000000;
+    background-image: radial-gradient(ellipse 80% 60% at 50% -10%, #1a1a2e 0%, #0d0d1a 40%, #000000 100%);
+  }
+
+  /* ---- Alternating section gradient ---- */
+  .bg-section-light {
+    background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+  }
+
+  /* ---- Grid pattern background ---- */
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* ---- Hero section: gradient + grid combined ---- */
+  .bg-hero-pattern {
+    background-color: #000000;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      radial-gradient(ellipse 80% 60% at 50% -10%, #1a1a2e 0%, #0d0d1a 40%, #000000 100%);
+    background-size: 60px 60px, 60px 60px, auto;
+  }
+
+  /* ---- Card gradient accents ---- */
+  .card-gradient-accent {
+    position: relative;
+  }
+
+  .card-gradient-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #0071e3, #5e5ce6, transparent);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .card-gradient-accent-green::before {
+    background: linear-gradient(90deg, #34c759, #30d158, transparent);
+  }
+
+  .card-gradient-accent-purple::before {
+    background: linear-gradient(90deg, #5e5ce6, #bf5af2, transparent);
+  }
+
+  .card-gradient-accent-amber::before {
+    background: linear-gradient(90deg, #ff9f0a, #ff6b35, transparent);
+  }
+
+  /* ---- Scrollbar hide ---- */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

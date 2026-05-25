@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LenisProvider } from "@/components/layout/LenisProvider";
+import { PageTransition } from "@/components/layout/PageTransition";
+import { RouteProgress } from "@/components/layout/RouteProgress";
+import { ToastProvider } from "@/components/ui/ToastProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,11 +23,16 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className={`min-h-screen ${inter.className} antialiased`}>
-        <LenisProvider>
-          <Navbar />
-          <main className="pt-20">{children}</main>
-          <Footer />
-        </LenisProvider>
+        <ToastProvider>
+          <RouteProgress />
+          <LenisProvider>
+            <Navbar />
+            <main className="pt-20">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+          </LenisProvider>
+        </ToastProvider>
       </body>
     </html>
   );

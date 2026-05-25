@@ -20,13 +20,13 @@ export function PricingCards({ pricingJson }: { pricingJson: string }) {
         {tiers.map((tier) => (
           <div
             key={tier.name}
-            className="min-w-[260px] snap-start rounded-2xl border border-neutral-200 p-6 flex-shrink-0"
+            className="min-w-[260px] snap-start rounded-custom-lg border border-border bg-primary p-6 flex-shrink-0"
           >
             <h3 className="font-semibold">{tier.name}</h3>
             <p className="mt-2 text-3xl font-bold">{tier.price}</p>
             <ul className="mt-4 space-y-2">
               {tier.features.map((f, j) => (
-                <li key={j} className="flex items-start gap-2 text-sm text-neutral-600">
+                <li key={j} className="flex items-start gap-2 text-sm text-foreground-secondary">
                   <svg className="mt-0.5 h-4 w-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>

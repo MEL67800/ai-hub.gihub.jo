@@ -6,7 +6,9 @@ import { PricingCards } from "@/components/product/PricingCards";
 import { ProsCons } from "@/components/product/ProsCons";
 import { Timeline } from "@/components/product/Timeline";
 import { CommentSection } from "@/components/product/CommentSection";
+import { ModelSpecsCard } from "@/components/product/ModelSpecsCard";
 import { Markdown } from "@/components/ui/Markdown";
+import { modelSpecs } from "@/data/model-specs";
 import type { Metadata } from "next";
 
 interface Props {
@@ -39,6 +41,7 @@ export default async function ProductDetailPage({ params }: Props) {
         </section>
       )}
       <ProsCons pros={product.pros} cons={product.cons} />
+      {modelSpecs[product.slug] && <ModelSpecsCard spec={modelSpecs[product.slug]} />}
       <Timeline productId={product.id} />
       <CommentSection productId={product.id} />
     </div>

@@ -1,7 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { createContext, useContext, useEffect, useRef } from "react";
 import Lenis from "lenis";
+
+interface LenisContextValue {
+  lenis: Lenis | null;
+}
+
+const LenisContext = createContext<LenisContextValue>({ lenis: null });
+
+export function useLenis() {
+  return useContext(LenisContext);
+}
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
@@ -26,5 +36,9 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  return <>{children}</>;
+  return (
+    <LenisContext.Provider value={{ lenis: lenisRef.current }}>
+      {children}
+    </LenisContext.Provider>
+  );
 }
