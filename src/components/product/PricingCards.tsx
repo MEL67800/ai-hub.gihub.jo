@@ -17,9 +17,9 @@ export function PricingCards({ pricingJson }: { pricingJson: string }) {
         ref={scrollRef}
         className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
       >
-        {tiers.map((tier, i) => (
+        {tiers.map((tier) => (
           <div
-            key={i}
+            key={tier.name}
             className="min-w-[260px] snap-start rounded-2xl border border-neutral-200 p-6 flex-shrink-0"
           >
             <h3 className="font-semibold">{tier.name}</h3>

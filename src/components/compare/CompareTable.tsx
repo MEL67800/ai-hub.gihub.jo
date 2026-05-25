@@ -1,4 +1,4 @@
-import type { ProductWithRating } from "@/types";
+import type { ProductWithRating, PricingTier } from "@/types";
 import { parsePricing } from "@/lib/utils";
 
 interface Props {
@@ -48,10 +48,10 @@ export function CompareTable({ products, onRemove }: Props) {
                 else if (row.key === "release_date") value = p.release_date;
                 else if (row.key === "free") {
                   const tiers = parsePricing(p.pricing_json);
-                  value = tiers.find((t: any) => t.price === "免费")?.name || "无";
+                  value = tiers.find((t: PricingTier) => t.price === "免费")?.name || "无";
                 } else if (row.key === "price") {
                   const tiers = parsePricing(p.pricing_json);
-                  const paid = tiers.find((t: any) => t.price !== "免费");
+                  const paid = tiers.find((t: PricingTier) => t.price !== "免费");
                   value = paid?.price || "免费";
                 }
                 return <td key={p.id} className="py-3 px-4 text-sm">{value}</td>;

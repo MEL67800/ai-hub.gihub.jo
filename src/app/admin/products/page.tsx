@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllProducts } from "@/lib/db";
 import { Button } from "@/components/ui/Button";
+import { DeleteButton } from "../components/DeleteButton";
 
 export default function AdminProductsPage() {
   const products = getAllProducts();
@@ -30,8 +31,8 @@ export default function AdminProductsPage() {
                 <td className="px-6 py-4 text-sm text-neutral-500">{p.company}</td>
                 <td className="px-6 py-4 text-sm">{p.status}</td>
                 <td className="px-6 py-4 text-sm space-x-3">
-                  <Link href={`/admin/products/${p.id}/edit`} className="text-blue-600 hover:underline">编辑</Link>
-                  <button className="text-red-500 hover:underline">删除</button>
+                  <Link href={`/admin/products/${p.slug}/edit`} className="text-blue-600 hover:underline">编辑</Link>
+                  <DeleteButton apiPath={`/api/products/${p.slug}`} />
                 </td>
               </tr>
             ))}

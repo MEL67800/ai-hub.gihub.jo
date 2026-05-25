@@ -5,44 +5,31 @@ import { Button } from "@/components/ui/Button";
 import { formatDate } from "@/lib/utils";
 import type { Rating } from "@/types";
 
-export function CommentSection({ slug }: { slug: string }) {
+export function CommentSection({ productId }: { productId: number }) {
   const [ratings, setRatings] = useState<Rating[]>([]);
   const [score, setScore] = useState(5);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch ratings for this product by slug
-    // First get product to find its id
-    fetch(`/api/products`)
-      .then(r => r.json())
-      .then(products => {
-        const product = products.find((p: any) => p.slug === slug);
-        if (product) {
-          return fetch(`/api/ratings?product_id=${product.id}`).then(r => r.json());
-        }
-        return [];
-      })
+    fetch(`/api/ratings?product_id=${productId}`)
+      .then((r) => r.json())
       .then(setRatings)
       .catch(() => {});
-  }, [slug]);
+  }, [productId]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // Get product id from slug
-    const products = await fetch("/api/products").then(r => r.json());
-    const product = products.find((p: any) => p.slug === slug);
-    if (!product) { setLoading(false); return; }
 
     const res = await fetch("/api/ratings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product_id: product.id, score, comment }),
+      body: JSON.stringify({ product_id: productId, score, comment }),
     });
     if (res.ok) {
       setComment("");
-      const updated = await fetch(`/api/ratings?product_id=${product.id}`).then((r) => r.json());
+      const updated = await fetch(`/api/ratings?product_id=${productId}`).then((r) => r.json());
       setRatings(updated);
     }
     setLoading(false);

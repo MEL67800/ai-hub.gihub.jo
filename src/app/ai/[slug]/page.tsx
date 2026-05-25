@@ -40,7 +40,7 @@ export default async function ProductDetailPage({ params }: Props) {
       )}
       <ProsCons pros={product.pros} cons={product.cons} />
       <Timeline productId={product.id} />
-      <CommentSection slug={product.slug} />
+      <CommentSection productId={product.id} />
     </div>
   );
 }

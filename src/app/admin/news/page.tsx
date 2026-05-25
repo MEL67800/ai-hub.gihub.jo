@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllNews } from "@/lib/db";
 import { Button } from "@/components/ui/Button";
+import { DeleteButton } from "../components/DeleteButton";
 
 export default function AdminNewsPage() {
   const newsList = getAllNews();
@@ -40,7 +41,7 @@ export default function AdminNewsPage() {
                   >
                     编辑
                   </Link>
-                  <button className="text-red-500 hover:underline">删除</button>
+                  <DeleteButton apiPath={`/api/news/${item.id}`} />
                 </td>
               </tr>
             ))}
