@@ -20,6 +20,7 @@
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.11",
     "@tailwindcss/typography": "^0.5.19",
     "@types/better-sqlite3": "^7.6.0",
     "@types/node": "^22.0.0",
